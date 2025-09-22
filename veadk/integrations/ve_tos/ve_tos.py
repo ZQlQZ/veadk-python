@@ -119,7 +119,7 @@ class VeTOS:
             )
             return False
 
-    def create_bucket(self, bucket_name: str = None) -> bool:
+    def create_bucket(self, bucket_name: str = "") -> bool:
         """Create bucket (if not exists)
 
         Args:
