@@ -1,4 +1,3 @@
-
 from veadk import Agent, Runner
 from veadk.tools.builtin_tools.web_search import web_search
 from veadk.memory.short_term_memory import ShortTermMemory
@@ -19,18 +18,19 @@ agent: Agent = Agent(
 )
 
 
-short_term_memory = ShortTermMemory()  
+short_term_memory = ShortTermMemory()
 
 runner = Runner(
     agent=agent, short_term_memory=short_term_memory, app_name=app_name, user_id=user_id
 )
 
+
 async def main():
-    response = await runner.run(
-        messages="阳光电源？", session_id=session_id
-    )
+    response = await runner.run(messages="阳光电源？", session_id=session_id)
     print(response)
+
 
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())

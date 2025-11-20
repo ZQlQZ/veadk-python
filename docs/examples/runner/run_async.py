@@ -2,7 +2,6 @@ import asyncio
 
 from veadk import Runner
 from google.adk.agents import BaseAgent
-from google.adk.artifacts import InMemoryArtifactService
 from google.adk.events import Event, EventActions
 from google.adk.sessions import InMemorySessionService
 from google.adk.agents.invocation_context import InvocationContext
@@ -11,6 +10,7 @@ from google.genai import types
 APP_NAME = "interactive_app"
 USER_ID = "test_user_01"
 SESSION_ID = "session_001"
+
 
 # 模拟指令执行的Agent
 class AsyncInteractiveAgent(BaseAgent):
@@ -27,9 +27,7 @@ class AsyncInteractiveAgent(BaseAgent):
                 content=types.Content(
                     parts=[types.Part(text=f"你说: {user_input}，是否确认执行？")]
                 ),
-                actions=EventActions(
-                    state_delta={"pending_input": user_input}
-                ),
+                actions=EventActions(state_delta={"pending_input": user_input}),
             )
             return
         else:
@@ -51,18 +49,22 @@ class AsyncInteractiveAgent(BaseAgent):
                 pending_action = state.get("pending_input", "")
                 yield Event(
                     author=self.name,
-                    content=types.Content(parts=[types.Part(text=f"操作 '{pending_action}' 已取消 ❌")]),
+                    content=types.Content(
+                        parts=[types.Part(text=f"操作 '{pending_action}' 已取消 ❌")]
+                    ),
                     actions=EventActions(state_delta={"pending_input": None}),
                 )
                 return
-            
+
 
 # 模拟多轮异步会话
 async def main():
     session_service = InMemorySessionService()
     agent = AsyncInteractiveAgent(name="async_agent")
     runner = Runner(agent=agent, app_name=APP_NAME, session_service=session_service)
-    session = await session_service.create_session(user_id=USER_ID, app_name=APP_NAME, session_id=SESSION_ID)
+    session = await session_service.create_session(
+        user_id=USER_ID, app_name=APP_NAME, session_id=SESSION_ID
+    )
 
     # 第 1 轮：输入指令
     async for event in runner.run_async(

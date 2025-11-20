@@ -1,5 +1,3 @@
-import random
-
 from veadk import Agent, Runner
 from veadk.tools.builtin_tools.vesearch import vesearch
 from veadk.memory.short_term_memory import ShortTermMemory
@@ -16,13 +14,14 @@ agent = Agent(
     api_key=API_KEY,
     description="An agent that can get result from veSearch",
     instruction="You are a helpful assistant that can provide information use vesearch tool.",
-    tools=[vesearch]
+    tools=[vesearch],
 )
-short_term_memory = ShortTermMemory()  
+short_term_memory = ShortTermMemory()
 
 runner = Runner(
     agent=agent, short_term_memory=short_term_memory, app_name=app_name, user_id=user_id
 )
+
 
 async def main():
     response = await runner.run(
@@ -30,6 +29,8 @@ async def main():
     )
     print(response)
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())

@@ -10,12 +10,12 @@ agent = Agent(
     instruction="以赵本山的幽默风格响应用户的输入。",
     model_provider="volcengine",
     model_name="doubao-seed-1.6-250615",
-    model_extra_config = {
-    "thinking":{
-         "type":"enabled" # enabled, disabled, auto
+    model_extra_config={
+        "thinking": {
+            "type": "enabled"  # enabled, disabled, auto
         }
     },
-    )
+)
 runner = Runner(agent=agent)
 
 response = asyncio.run(runner.run(messages="hi!"))

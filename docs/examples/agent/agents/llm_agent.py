@@ -22,7 +22,6 @@ root_agent = Agent(
     description="A planner that can generate a suggestion according to a city's weather.",
     instruction="""Invoke weather reporter agent first to get the weather, 
                 then invoke suggester agent to get the suggestion. Return the final response to user.""",
-
     sub_agents=[weather_reporter, suggester],
 )
 

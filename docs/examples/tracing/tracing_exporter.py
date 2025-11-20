@@ -5,7 +5,7 @@ from veadk.tracing.telemetry.opentelemetry_tracer import OpentelemetryTracer
 # init tracing exporter
 exporters = [
     APMPlusExporter(),
-]  
+]
 tracer = OpentelemetryTracer(exporters=exporters)
 
 # Define the Agent

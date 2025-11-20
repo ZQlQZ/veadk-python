@@ -1,5 +1,3 @@
-import random
-
 from veadk import Agent, Runner
 from veadk.tools.builtin_tools.web_search import web_search
 from veadk.memory.short_term_memory import ShortTermMemory
@@ -14,13 +12,14 @@ agent = Agent(
     model_name="doubao-seed-1-6-250615",
     description="An agent that can get result from Web Search",
     instruction="You are a helpful assistant that can provide information use web search tool.",
-    tools=[web_search]
+    tools=[web_search],
 )
-short_term_memory = ShortTermMemory()  
+short_term_memory = ShortTermMemory()
 
 runner = Runner(
     agent=agent, short_term_memory=short_term_memory, app_name=app_name, user_id=user_id
 )
+
 
 async def main():
     response = await runner.run(
@@ -28,6 +27,8 @@ async def main():
     )
     print(response)
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())
