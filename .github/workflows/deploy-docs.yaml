@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feat/docs
+      - feat/veadk_docs
     paths:
       - 'docs/**'
       - '.github/workflows/deploy-docs.yaml'
